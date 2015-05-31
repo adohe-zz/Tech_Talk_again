@@ -34,7 +34,18 @@ Inspired by ZooKeeper, Etcd, ZooKeeper and even doozerd are all similar in their
 ##Raft
 
 ###What is Raft?
+
+within "[the Raft paper][9]", they describe Raft algorithm like this: Raft is a consensus algorithm for managing a replicated log. It produces a result equivalent to (multi-)Paxos, and it is as efficient as Paxos. Actually it provides the same guarantees as (multi-)Paxos under the same asumptions(they adopt the same system model -- Asynchronous system model). But Raft structure is different from Paxos; This makes Raft more understandable than Paxos and also provides a better foundation for building practical systems. 
+
+###What is consensus?
+
+Consensus is a fundamental problem in fault-tolerant distributed systems. Consensus involves multiple servers agreeing on values. Once they reach a decision on a value, that decision is final. Typical consensus algorithms make progress when any majority of their servers are available; for example, a cluster of 5 servers can continue to operate even if 2 servers fail. If more servers fail, they stop making progress (but will never return an incorrect result).
+
+Consensus typically arises in the context of replicated state machines, a general approach to building fault-tolerant systems. Each server has a state machine and a log. The state machine is the component that we want to make fault-tolerant, such as a hash table. It will appear to clients that they are interacting with a single, reliable state machine, even if a minority of the servers in the cluster fail. Each state machine takes as input commands from its log. In our hash table example, the log would include commands like set x to 3. A consensus algorithm is used to agree on the commands in the servers' logs. The consensus algorithm must ensure that if any state machine applies set x to 3 as the nth command, no other state machine will ever apply a different nth command. As a result, each state machine processes the same series of commands and thus produces the same series of results and arrives at the same series of states.
+
 ###What is CAP?
+
+It has been fifteen years since Dr Eric Brewer introducted the idea that there is a fundamental trade-off between *consistency*, *availability*, and *partitoon tolerance*. This trade-off, which has become known as the *CAP Theorem*, has been widely discussed ever since. Some of the interest in the CAP Theorem, perhaps, derives from the fact that it illustrates a more general trade-off that apperas everywhere in the study of distributed computing: the impossibility of guaranteeing both *safety* and *liveness* in an *unreliable distributed system*. You may think Consistency (as defined in the CAP Theorem) is a classical safety property: every response sent to a client is correct; Availability is a classical liveness property: eventually, every request receives a response. Of course partitions (as defined in the CAP Theorm) is a kind of unreliable. I think most of you may be familiar with this picture:
 ###Paxos, Raft and ZAB
 
 
@@ -47,3 +58,4 @@ Inspired by ZooKeeper, Etcd, ZooKeeper and even doozerd are all similar in their
 [6]: http://en.wikipedia.org/wiki/Leader_election
 [7]: http://en.wikipedia.org/wiki/Message_Queue
 [8]: http://en.wikipedia.org/wiki/Notification_system
+[9]: http://ramcloud.stanford.edu/raft.pdf
