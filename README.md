@@ -8,7 +8,7 @@ Just give a brief but comprehensive enough introduction to Etcd and some distrib
 	
 Accorrding to Github Etcd repo:
 
-	Etcd is a distributed, consistent key value store for shared configuration and service discovery. It is written in Go and uses the Raft consensue algorithm to manage a high-available replicated log.
+	Etcd is a distributed, consistent key value store for shared configuration and 	service discovery. It is written in Go and uses the Raft consensue algorithm to 	manage a high-available replicated log.
 
 Etcd focus on being:
 
@@ -45,8 +45,20 @@ Consensus typically arises in the context of replicated state machines, a genera
 
 ###What is CAP?
 
-It has been fifteen years since Dr Eric Brewer introducted the idea that there is a fundamental trade-off between *consistency*, *availability*, and *partitoon tolerance*. This trade-off, which has become known as the *CAP Theorem*, has been widely discussed ever since. Some of the interest in the CAP Theorem, perhaps, derives from the fact that it illustrates a more general trade-off that apperas everywhere in the study of distributed computing: the impossibility of guaranteeing both *safety* and *liveness* in an *unreliable distributed system*. You may think Consistency (as defined in the CAP Theorem) is a classical safety property: every response sent to a client is correct; Availability is a classical liveness property: eventually, every request receives a response. Of course partitions (as defined in the CAP Theorm) is a kind of unreliable. I think most of you may be familiar with this picture:
+It has been fifteen years since Dr Eric Brewer introducted the idea that there is a fundamental trade-off between *consistency*, *availability*, and *partitoon tolerance*. This trade-off, which has become known as the *CAP Theorem*, has been widely discussed ever since. Some of the interest in the CAP Theorem, perhaps, derives from the fact that it illustrates a more general trade-off that apperas everywhere in the study of distributed computing: the impossibility of guaranteeing both *safety* and *liveness* in an *unreliable distributed system*. You may think Consistency (as defined in the CAP Theorem) is a classical safety property: every response sent to a client is correct; Availability is a classical liveness property: eventually, every request receives a response. Of course partitions (as defined in the CAP Theorm) is a kind of unreliable. I think most of you may be familiar with this beautiful picture: 
+![CAP](https://raw.githubusercontent.com/AdoHe/Tech_Talk_again/master/images/CAP.png)
+
+and the famous "2 of 3" formulation, even which is always mislead since it tended to oversimplify the tensions among properties. Please refer this for more details: 
+[CAP Twelve Years Later: How the "Rules" Have Changed][10]
+
 ###Paxos, Raft and ZAB
+
+Over the last ten years, Leslie Lamport's [Paxos protocol][11] has become almost synonymous with consensus. Unfortunately, Paxos has two significant drawbacks. The first drawback is that Paxos is exceptionally difficult to understand. The second drawback is that the Paxos architecture is a poor one for building practical systems. As a result, practical systems bear little resemblance to Paxos. Each implementation begins with Paxos, discovers the difficulities in implementating it, and then develops a significantly different architecture. Just like the comment from Chubby implementers:
+
+	There are significant gaps between the description of the Paxos algorithm and
+	the needs of a real-world system….the final system will be based on an unproven 	protocol.
+	
+Chubby has implementated Paxos-like algorithm. ZAB (ZooKeeper Atomic Broadcast), which is used in ZooKeeper, also a Paxos-like algorithm. The main conceptual difference between Zab and Paxos is that it is primarily designed for primary-backup systems, like Zookeeper, rather than for state machine replication. For Raft, it is an alternative to Paxos.
 
 
 
@@ -59,3 +71,5 @@ It has been fifteen years since Dr Eric Brewer introducted the idea that there i
 [7]: http://en.wikipedia.org/wiki/Message_Queue
 [8]: http://en.wikipedia.org/wiki/Notification_system
 [9]: http://ramcloud.stanford.edu/raft.pdf
+[10]: http://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed
+[11]: http://research.microsoft.com/en-us/um/people/lamport/pubs/lamport-paxos.pdf
