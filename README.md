@@ -58,8 +58,26 @@ Over the last ten years, Leslie Lamport's [Paxos protocol][11] has become almost
 	There are significant gaps between the description of the Paxos algorithm and
 	the needs of a real-world system….the final system will be based on an unproven 	protocol.
 	
-Chubby has implementated Paxos-like algorithm. ZAB (ZooKeeper Atomic Broadcast), which is used in ZooKeeper, also a Paxos-like algorithm. The main conceptual difference between Zab and Paxos is that it is primarily designed for primary-backup systems, like Zookeeper, rather than for state machine replication. For Raft, it is an alternative to Paxos.
+Chubby has implementated Paxos-like algorithm. ZAB (ZooKeeper Atomic Broadcast), which is used in ZooKeeper, also a Paxos-like algorithm. The main conceptual difference between Zab and Paxos is that it is primarily designed for primary-backup systems, like Zookeeper, rather than for state machine replication. For Raft, it is just an alternative to Paxos.
 
+##Etcd in SOA Framework
+
+###SOA Framework
+
+Microservices are currently getting a lot of attention:articles, blogs, discussions on social media, and conference presentations. More and more companies are adapting service-oriented architecture. We build our own SOA Service framework, which enables service auto-registration/auto-discovery. The whole architecture is quite simple:
+![SOA](https://raw.githubusercontent.com/AdoHe/Baiji/master/Documents/arch.jpg)
+
+Here SOA Registry Center is a key compoment.
+
+###Etcd in Service Discovery
+
+Service discovery is a key component of most distributed systems and service oriented architectures. The problem seems simple at first: How do clients determine the IP and port for a service that exist on multiple hosts? Usually, you start off with some static configuration which gets you pretty far. Things get more complicated as you start deploying more services. With a live system, service locations can change quite frequently due to auto or manual scaling, new deployments of services, as well as hosts failing or being replaced. Dynamic service registration and discovery becomes much more important in these scenarios in order to avoid service interruption. For a Service discovery, typically there are three properties:
+
+- a consisteny, high-available service store directory.
+- service registry and health check mechanism.
+- service lookup and connect mechanism.
+
+Etch, based on Raft algorithm provides such properties, and is quite suitable for this scenarios:
 
 
 [1]: http://raftconsensus.github.io/
