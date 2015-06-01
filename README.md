@@ -71,13 +71,17 @@ Here SOA Registry Center is a key compoment.
 
 ###Etcd in Service Discovery
 
-Service discovery is a key component of most distributed systems and service oriented architectures. The problem seems simple at first: How do clients determine the IP and port for a service that exist on multiple hosts? Usually, you start off with some static configuration which gets you pretty far. Things get more complicated as you start deploying more services. With a live system, service locations can change quite frequently due to auto or manual scaling, new deployments of services, as well as hosts failing or being replaced. Dynamic service registration and discovery becomes much more important in these scenarios in order to avoid service interruption. For a Service discovery, typically there are three properties:
+Service discovery is a key component of most distributed systems and service oriented architectures. The problem seems simple at first: How do clients determine the IP and port for a service that exist on multiple hosts? Usually, you start off with some static configuration which gets you pretty far. Things get more complicated as you start deploying more services. With a live system, service locations can change quite frequently due to auto or manual scaling, new deployments of services, as well as hosts failing or being replaced. Dynamic service registration and discovery becomes much more important in these scenarios in order to avoid service interruption. For Service discovery, typically there are three properties:
 
 - a consisteny, high-available service store directory.
 - service registry and health check mechanism.
 - service lookup and connect mechanism.
 
 Etch, based on Raft algorithm provides such properties, and is quite suitable for this scenarios:
+
+![Service](https://raw.githubusercontent.com/AdoHe/Tech_Talk_again/master/images/0129001.jpg)
+
+###The drawback and more about Service discovery
 
 
 [1]: http://raftconsensus.github.io/
