@@ -8,7 +8,8 @@ Just give a brief but comprehensive enough introduction to Etcd and some distrib
 	
 Accorrding to Github Etcd repo:
 
-	Etcd is a distributed, consistent key value store for shared configuration and 	service discovery. It is written in Go and uses the Raft consensue algorithm to 	manage a high-available replicated log.
+	Etcd is a distributed, consistent key value store for shared configuration and service discovery. 
+	It is written in Go and uses the Raft consensue algorithm to manage a high-available replicated log.
 
 Etcd focus on being:
 
@@ -21,7 +22,7 @@ Etcd use [active][2], leader based replication model.
 
 ###Etcd usage scenario
 
-Inspired by ZooKeeper, Etcd, ZooKeeper and even doozerd are all similar in their architecture. All these have sever nodes that require a quorum of nodes to operate (usually a simple majority). They are strongly-consistent and expose various primitives that can be used through client libraries within application to build complex distributed systems. Typical use cases include:
+Inspired by ZooKeeper, Etcd, ZooKeeper and even doozerd are all similar in their architecture. All these have server nodes that require a quorum of nodes to operate (usually a simple majority). They are strongly-consistent and expose various primitives that can be used through client libraries within application to build complex distributed systems. Typical use cases include:
 
 - [Naming service][3]
 - [Configuration management][4]
@@ -56,7 +57,7 @@ and the famous "2 of 3" formulation, even which is always mislead since it tende
 Over the last ten years, Leslie Lamport's [Paxos protocol][11] has become almost synonymous with consensus. Unfortunately, Paxos has two significant drawbacks. The first drawback is that Paxos is exceptionally difficult to understand. The second drawback is that the Paxos architecture is a poor one for building practical systems. As a result, practical systems bear little resemblance to Paxos. Each implementation begins with Paxos, discovers the difficulities in implementating it, and then develops a significantly different architecture. Just like the comment from Chubby implementers:
 
 	There are significant gaps between the description of the Paxos algorithm and
-	the needs of a real-world system….the final system will be based on an unproven 	protocol.
+	the needs of a real-world system…the final system will be based on an unproven protocol.
 	
 Chubby has implementated Paxos-like algorithm. ZAB (ZooKeeper Atomic Broadcast), which is used in ZooKeeper, also a Paxos-like algorithm. The main conceptual difference between Zab and Paxos is that it is primarily designed for primary-backup systems, like Zookeeper, rather than for state machine replication. For Raft, it is just an alternative to Paxos.
 
